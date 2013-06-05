@@ -77,6 +77,14 @@ def gravatar_url(email, size=80):
         (md5(email.strip().lower().encode('utf-8')).hexdigest(), size)
 
 
+@app.errorhandler(404)
+def internal_error(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('500.html'), 500
+
 @app.before_request
 def before_request():
     """Make sure we are connected to the database each request and look
